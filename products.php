@@ -18,6 +18,48 @@
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
     <?php session_start();
       function alert($msg) {
         echo "<script type='text/javascript'>alert('$msg');</script>";
@@ -31,7 +73,7 @@
   </head>
 
   <body>
-
+  <!-- style="position: absolute; margin-top: 70px;margin-left: 600px" -->
   <?php include("header.php");?>
 
     <!-- Page Content -->
@@ -45,13 +87,23 @@
         </div>
       </div>
     </div>
-
+  <form class="example" action="" method="POST" style="position: absolute;margin-left: 800px;;max-width:800px; margin-top: 50px;">
+  <input type="text" placeholder="Search.." name="search2">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
     <div class="services">
       <div class="container">
         <div class="row">
             <?php
               include('./config/db.php');
-              $sql = "SELECT * FROM sanpham";
+              if(isset($_POST['search2']))
+              {
+                $ten = $_POST['search2'];
+                $sql = "SELECT * FROM sanpham WHERE TenSanPham LIKE '%$ten%'";
+              }
+              else {
+                $sql = "SELECT * FROM sanpham";
+              }
               $result = $link->query($sql);
             
               if ($result->num_rows > 0) {
