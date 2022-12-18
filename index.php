@@ -94,7 +94,7 @@
               while($row = $result->fetch_assoc()) {
                 echo '<div class="col-md-4">';
                 echo '<div class="service-item">';
-                echo '<img src="img/'.$row["HinhAnh"].'" alt="">';
+                echo '<img src="img/'.$row["HinhAnh"].'" alt="" height="350" width="350" >';
                 echo '<div class="down-content">';
                 echo '<h4>'. $row["TenSanPham"] .'</h4>';
                 echo '<div style="margin-bottom:10px;">';

@@ -104,14 +104,21 @@ form.example::after {
               else {
                 $sql = "SELECT * FROM sanpham";
               }
+              $page=0;
+              if(isset($_GET['page']))
+              {
+                $page = $_GET['page'];
+                $page = ($page -1)*3;
+              }
+              $sql .= " ORDER BY 'MaSanPham' ASC LIMIT $page,3";
               $result = $link->query($sql);
-            
+              
               if ($result->num_rows > 0) {
               // output data of each row
               while($row = $result->fetch_assoc()) {
                 echo '<div class="col-md-4">';
                 echo '<div class="service-item">';
-                echo '<img src="img/'.$row["HinhAnh"].'" alt="">';
+                echo '<img src="img/'.$row["HinhAnh"].'" alt="" height="350" width="350" >';
                 echo '<div class="down-content">';
                 echo '<h4>'. $row["TenSanPham"] .'</h4>';
                 echo '<div style="margin-bottom:10px;">';
@@ -144,9 +151,15 @@ form.example::after {
                 <span class="sr-only">Previous</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <?php
+              $sqltrang = mysqli_query($link,"SELECT * FROM sanpham");
+              $rowcount = mysqli_num_rows($sqltrang);
+              $page = ceil($rowcount/3);
+              for($i=1;$i<=$page;$i++) {
+            ?>
+            <li class="page-item"><a class="page-link" href="products.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+            <?php }
+            ?>
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Next">
                 <span aria-hidden="true">»</span>
