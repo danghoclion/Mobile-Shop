@@ -84,8 +84,11 @@
           }
           ?>
          <div class="d-flex justify-content-end">
+         <a href="RemoveCard.php" type="button" class="btn btn-light btn-lg me-2">Xóa tất cả giỏ hàng</a>
           <a href="products.php" type="button" class="btn btn-light btn-lg me-2">Tiếp tục mua hàng</a>
-          <a href="thanhtoan.php" class="btn btn-primary btn-lg">Thanh toán</a>
+          <form action="vnpay.php" method="POST">
+          <input type="submit" class="btn btn-primary btn-lg" name="redirect" value="Thanh toán" />
+          </form>
          </div>
     <?php include("footer.php");?>
 

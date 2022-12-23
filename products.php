@@ -96,14 +96,7 @@ form.example::after {
         <div class="row">
             <?php
               include('./config/db.php');
-              if(isset($_POST['search2']))
-              {
-                $ten = $_POST['search2'];
-                $sql = "SELECT * FROM sanpham WHERE TenSanPham LIKE '%$ten%'";
-              }
-              else {
-                $sql = "SELECT * FROM sanpham";
-              }
+              $sql = "SELECT * FROM sanpham";
               $page=0;
               if(isset($_GET['page']))
               {
@@ -111,6 +104,11 @@ form.example::after {
                 $page = ($page -1)*3;
               }
               $sql .= " ORDER BY 'MaSanPham' ASC LIMIT $page,3";
+              if(isset($_POST['search2']))
+              {
+                $ten = $_POST['search2'];
+                $sql = "SELECT * FROM sanpham WHERE TenSanPham LIKE '%$ten%'";
+              }
               $result = $link->query($sql);
               
               if ($result->num_rows > 0) {
